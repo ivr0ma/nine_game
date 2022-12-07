@@ -10,7 +10,7 @@ class Card:
               "Jack", "Queen",
               "King", "Ace"]
 
-    def __init__(self, v, s):
+    def __init__(self, v=0, s=0):
         """suit + value are ints"""
         self.value = v
         self.suit = s
@@ -59,4 +59,7 @@ class Card:
         return (self.suit == c2.suit) and (self.value == c2.value)
 
     def __repr__(self):
-        return str(self.values[self.value]) + " " + str(self.suits[self.suit][0])
+        if self.value == 0:
+            return "_"
+        else:
+            return str(self.values[self.value]) + " " + str(self.suits[self.suit][0])

@@ -46,13 +46,29 @@ class Game:
 
         return -1
 
+    def in_board(self, card):
+        if card.suit == 0:
+            return card in self.board.spades
+        if card.suit == 1:
+            return card in self.board.hearts
+        if card.suit == 2:
+            return card in self.board.diamonds
+        if card.suit == 3:
+            return card in self.board.clubs
+
     def add_availabel_cards(self, card):
         if card.value > self.first_number:
-            self.available_cards.append(Card(card.value - 1, card.suit))
+            new_card = Card(card.value - 1, card.suit)
+            if not self.in_board(new_card):
+                self.available_cards.append(new_card)
             if card.value < 14:
-                self.available_cards.append(Card(card.value + 1, card.suit))
+                new_card = Card(card.value + 1, card.suit)
+                if not self.in_board(new_card):
+                    self.available_cards.append(new_card)
         else:
-            self.available_cards.append(Card(card.value + 1, card.suit))
+            new_card = Card(card.value + 1, card.suit)
+            if not self.in_board(new_card):
+                self.available_cards.append(new_card)
 
     def ai_move(self):
         self.ai.show()
