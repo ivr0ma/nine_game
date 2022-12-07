@@ -1,11 +1,11 @@
-import pylab as pl
-
 from Player import Player
 from Deck import Deck
+from Board import Board
 
 class Game:
-    def __init__(self):
-        self.deck = Deck()
+    def __init__(self, cards_count):
+        self.deck = Deck(cards_count)
+        self.board = Board(cards_count)
         self.pl = Player("you")
         self.ai = Player("AI")
 
@@ -20,6 +20,8 @@ class Game:
         self.pl.show()
         self.ai.show()
 
+        self.board.show()
+
     def wins(self, winner):
         print(f'{winner} wins this round')
 
@@ -27,27 +29,15 @@ class Game:
         print(f'{p1n} drew {p1c} {p2n} drew {p2c}')
 
     def play_game(self):
-        cards = self.deck.cards
         print("beginning War!")
-        while len(cards) >= 2:
-            m = "q to quit. Any " + "key to play:"
-            response = input(m)
-            if response == 'q':
-                break
-            p1c = self.deck.pop_card()
-            p2c = self.deck.pop_card()
-            p1n = self.p1.name
-            p2n = self.p2.name
-            self.draw(p1n, p1c, p2n, p2c)
-            if p1c > p2c:
-                self.p1.wins += 1
-                self.wins(self.p1.name)
-            else:
-                self.p2.wins += 1
-                self.wins(self.p2.name)
 
-        win = self.winner(self.p1, self.p2)
-        print(f"War is over.{win} wins")
+        while not self.board.is_full():
+            self.board.push_card(self.ai.pop_card())
+            self.board.push_card(self.pl.pop_card())
+
+            self.board.show()
+            print()
+
 
     def winner(self, p1, p2):
         if p1.wins > p2.wins:

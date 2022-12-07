@@ -9,3 +9,9 @@ class Player:
 
     def sort(self):
         self.cards = sorted(self.cards)
+
+    def pop_card(self):
+        if self.cards == []:
+            return None
+        else:
+            return self.cards.pop()

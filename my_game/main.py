@@ -1,7 +1,7 @@
 from Game import Game
 
-game = Game()
-#game.play_game()
+game = Game(36)
+game.play_game()
 
 #from Board import Board
 #from Deck import Deck
